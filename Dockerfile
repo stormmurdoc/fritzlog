@@ -19,7 +19,7 @@ ENV PY3_PIP_VERSION="23.3.1-r0"
 # renovate: datasource=pypi depName=graypy versioning=loose
 ENV GRAYPY_VERSION="2.1.0"
 # renovate: datasource=pypi depName=requests versioning=loose
-ENV REQUESTS_VERSION="2.32.0"
+ENV REQUESTS_VERSION="2.32.1"
 
 RUN apk add --update --no-cache \
     py3-pip=="$PY3_PIP_VERSION" \

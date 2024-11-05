@@ -7,7 +7,7 @@ jobs:
   hadolint:
     runs-on:
       - ubuntu-latest
-    container: adolint/hadolint:latest-alpine
+    container: hadolint/hadolint:latest-alpine
     steps:
       - uses: actions/checkout@v3
       - name: Run hadolint

@@ -1,0 +1,45 @@
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+env:
+  CACHE_DIR: ~/.cache/pre-commit
+  CACHE_KEY: pre-commit
+
+jobs:
+  pre-commit:
+    runs-on:
+      - ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v3
+
+      - name: Cache restore
+        id: cacherestore
+        uses: actions/cache/restore@v4
+        with:
+          path: ${{ env.CACHE_DIR }}
+          key: ${{ env.CACHE_KEY }}
+
+      - name: Install python pre-commit
+        run: python -m pip install pre-commit
+        shell: bash
+
+      - name: Run pip freeze
+        run: python -m pip freeze --local
+        shell: bash
+
+      - name: Run ls
+        run: ls -lart
+        shell: bash
+
+      - name: Run pre-commit checks
+        run: pre-commit run --show-diff-on-failure --color=always --all-files
+        shell: bash
+
+      - name: Cache save
+        uses: actions/cache/save@v4
+        with:
+          path: ${{ env.CACHE_DIR }}
+          key: ${{ steps.cachestep1.outputs.cache-primary-key }}

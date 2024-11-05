@@ -6,7 +6,7 @@ on:
 jobs:
   hadolint:
     runs-on:
-      - ubuntu-latest
+      - docker
     container: hadolint/hadolint:latest-alpine
     steps:
       - uses: actions/checkout@v3

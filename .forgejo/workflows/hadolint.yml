@@ -1,32 +1,27 @@
 name: Lint Dockerfile
 
-# Trigger: Bei jedem Push in einem beliebigen Branch
 on:
   push:
     branches:
       - "**"
 
-# Define the job to lint the Dockerfile
 jobs:
   lint-dockerfile:
-    runs-on: ubuntu-latest  # Standard-Runner-Umgebung
+    runs-on: ubuntu-latest
 
     steps:
-      # Check out the code
       - name: Check out code
         uses: actions/checkout@v3
 
-      # Install hadolint
-      - name: Install hadolint
+      - name: Download hadolint
         run: |
-          wget -O /usr/local/bin/hadolint https://github.com/hadolint/hadolint/releases/latest/download/hadolint-Linux-x86_64
-          chmod 755 /usr/local/bin/hadolint
+          wget -O ./hadolint https://github.com/hadolint/hadolint/releases/latest/download/hadolint-Linux-x86_64
+          chmod +x ./hadolint
 
-      # Run hadolint on Dockerfile
       - name: Lint Dockerfile
         run: |
           if [ -f ./Dockerfile ]; then
-            hadolint Dockerfile
+            ./hadolint Dockerfile
           else
             echo "No Dockerfile found!"
           fi
